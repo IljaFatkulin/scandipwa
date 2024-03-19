@@ -24,6 +24,8 @@ import { GroupedProductItem } from 'Query/ProductList.type';
 import { CategoryPageLayout } from 'Route/CategoryPage/CategoryPage.config';
 import { Children, ReactElement } from 'Type/Common.type';
 import { transitionElementFromTo } from 'Util/ElementTransition/ElementTransition';
+// import { fixINP } from 'Util/FixINP';
+// import { history } from 'Util/History';
 import { IndexedConfigurableOption } from 'Util/Product/Product.type';
 
 import { scrollToTop } from '../../util/Browser/Browser';
@@ -73,6 +75,12 @@ export class ProductCardComponent extends ProductComponent<ProductCardComponentP
     }
 
     handleLinkClick(): void {
+        // fixINP();
+
+        // const t = 0;
+        // setTimeout(() => {
+        //     history.push('link');
+        // }, t);
         const {
             isPlp,
             device: {
@@ -231,15 +239,31 @@ export class ProductCardComponent extends ProductComponent<ProductCardComponentP
             );
         }
 
+        // return (
+        //     // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
+        //     <div
+        //       role="button"
+        //       block="ProductCard"
+        //       elem="Link"
+        //       mix={ mix }
+        //       onClick={ this.handleLinkClick }
+        //       tabIndex={ 0 }
+        //       onKeyDown={ this.handleLinkClick }
+        //     >
+        //         { children }
+        //     </div>
+        // );
+
         return (
             <Link
               block="ProductCard"
               elem="Link"
               to={ linkTo }
               onClick={ this.handleLinkClick }
+              addFixINP
               mix={ mix }
             >
-              { children }
+                { children }
             </Link>
         );
     }

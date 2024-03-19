@@ -47,6 +47,7 @@ export type LinkContainerProps =
         onMouseEnter?: () => void;
         onMouseLeave?: () => void;
         tabIndex?: number;
+        addFixINP?: boolean;
     };
 
 export interface LinkComponentProps {
@@ -60,4 +61,5 @@ export interface LinkComponentProps {
     onMouseEnter?: () => void;
     onMouseLeave?: () => void;
     tabIndex?: number;
+    addFixINP?: boolean;
 }

@@ -15,10 +15,16 @@ import { MouseEvent, PureComponent } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { stringify } from 'rebem-classname';
 
-import { ReactElement } from 'Type/Common.type';
+import {
+    ReactElement,
+} from 'Type/Common.type';
 import { noopFn } from 'Util/Common';
+import fixINP from 'Util/FixINP';
+import { history } from 'Util/History';
 
 import { LinkComponentProps } from './Link.type';
+
+import './Link.style';
 
 /** @namespace Component/Link/Component */
 export class LinkComponent extends PureComponent<LinkComponentProps> {
@@ -123,6 +129,21 @@ export class LinkComponent extends PureComponent<LinkComponentProps> {
         );
     }
 
+    handleClickOnFixINP = (): void => {
+        const {
+            to,
+        } = this.props;
+
+        fixINP();
+
+        const timeout = 0;
+
+        setTimeout(() => {
+            const link: any = to;
+            history.push(link);
+        }, timeout);
+    };
+
     render(): ReactElement {
         const {
             className,
@@ -130,6 +151,7 @@ export class LinkComponent extends PureComponent<LinkComponentProps> {
             children,
             to,
             isOpenInNewTab,
+            addFixINP,
             ...props
         } = this.props;
 
@@ -149,6 +171,26 @@ export class LinkComponent extends PureComponent<LinkComponentProps> {
 
         if (/^https?:\/\//.test(to as string) || isOpenInNewTab) {
             return this.renderAbsolutePathLink(classNameConverted);
+        }
+
+        if (addFixINP) {
+            const { onClick: onClickProp, ...otherProps } = props;
+
+            return (
+                <div
+                  block="Link"
+                  elem="FixInp"
+                  role="button"
+                  tabIndex={ 0 }
+                  onKeyDown={ this.handleClickOnFixINP }
+                  // eslint-disable-next-line react/forbid-dom-props
+                  className={ classNameConverted }
+                  onClick={ this.handleClickOnFixINP }
+                  { ...otherProps }
+                >
+                    { children }
+                </div>
+            );
         }
 
         return (

@@ -59,6 +59,7 @@ export class LinkContainer extends PureComponent<LinkContainerProps> {
             baseLinkUrl, // remove this prop
             dispatch, // remove this prop
             updateNoMatch,
+            addFixINP,
             ...restProps
         } = this.props;
 
@@ -71,11 +72,13 @@ export class LinkContainer extends PureComponent<LinkContainerProps> {
                 mods,
                 mix,
             },
+            addFixINP,
         };
     }
 
     getTo(): Url | string {
         const { to: toProp } = this.props;
+
         // fix null, undefined and empty links
         const to = toProp || '/';
 
